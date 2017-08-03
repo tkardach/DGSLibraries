@@ -1,0 +1,8 @@
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Debug\SharePointLibraries.exe.config
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Debug\SharePointLibraries.exe
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Debug\SharePointLibraries.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Debug\Microsoft.SharePoint.Client.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Debug\Microsoft.SharePoint.Client.Runtime.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\obj\Debug\SharePointLibraries.exe
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\obj\Debug\SharePointLibraries.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\obj\Debug\SharePointLibraries.csprojResolveAssemblyReference.cache

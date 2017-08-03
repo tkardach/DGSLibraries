@@ -1,0 +1,7 @@
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Release\SharePointLibraries.dll.config
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Release\SharePointLibraries.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Release\SharePointLibraries.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Release\Microsoft.SharePoint.Client.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\bin\Release\Microsoft.SharePoint.Client.Runtime.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\obj\Release\SharePointLibraries.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\SharePointLibraries\obj\Release\SharePointLibraries.pdb
