@@ -31,18 +31,19 @@ Process:
  automatically send them an email reminding them to renew it).
  
 Libraries:
-  PowerShellFuncions:
+
+  - PowerShellFuncions:
    A collection of classes that allow you to run PowerShell script from C#. The
    general class allows you to run code and return a Collection<PSObject>, the
    children classes are specific for the purpose of the Certificate Scanner.
 
-  CertificateLibraries:
+  - CertificateLibraries:
    Contains the certificate scanner. The certificate scanner takes a machine
    name, and returns a structured object containing all IP Addresses with all
    Ports that have a certificate bound to it, as well as the certificate on each 
    port.
 
-  SharePointLibraries:
+  - SharePointLibraries:
    A Collection of SharePoint functions that can be used to query a SharePoint
    website. Contains methods that allow you to retrieve all Lists associated
    with a SharePoint website, all Field items associated with a List, and all
