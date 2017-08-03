@@ -147,7 +147,7 @@ namespace SharePointLibrary
 
     public class DGSSharePoint : SharePoint
     {
-        private const string _dgsSharePointUrl = "http://dgssp.dgs.ca.gov/projects/ETS/ETSDocumentation/";
+        private const string _dgsSharePointUrl = "/*DGS SharePoint URL for public repository*/";
 
         /// <summary>
         /// Constructs a SharePoint object using the DGS SharePoint url.
@@ -172,12 +172,8 @@ namespace SharePointLibrary
 
     public class DGSServerInventory : DGSSharePoint
     {
-        private const string _serverInventoryList = "ETS Server Inventory";
-        private const string _supportStaffField = "Support_x0020_Staff_x0020_2";
-        //private const string _applicationNameField = "Application_x0020_Name";
-        //private const string _businessUnitField = "Support_x0200_Unit";
-        //private const string _serverTypeField = "Server_x0020_Type";
-        //private const string _environmentField = "Physical_x002f_Virtual";
+        private const string _serverInventoryList = "/*List name removed for public repository*/";
+        private const string _supportStaffField = "/*Field name removed for public repository*/";
 
         private Dictionary<string, ServerItem> _serverInventory;
 
@@ -186,10 +182,6 @@ namespace SharePointLibrary
         {
             private String _serverName;
             private List<String> _supportStaff;
-            //private string _applicationName;
-            //private string _businessUnit;
-            //private string _serverType;
-            //private string _environment;
 
             // Constructs the Server Item based off of the server name
             public ServerItem(String name)
@@ -201,10 +193,6 @@ namespace SharePointLibrary
             // Accessor methods
             public String ServerName { set { _serverName = value; } get { return _serverName; } }
             public List<String> SupportStaff { set { _supportStaff = value; } get { return _supportStaff; } }
-            //public string ApplicationName { set { _applicationName = value; } get { return _applicationName; } }
-            //public string BusinessUnit { set { _businessUnit = value; } get { return _businessUnit; } }
-            //public string ServerType { set { _serverType = value; } get { return _serverType; } }
-            //public string Environment { set { _environment = value; } get { return _environment; } }
 
             // Support staff List methods
             public void AddStaff(string staff) { _supportStaff.Add(staff); }
@@ -269,15 +257,5 @@ namespace SharePointLibrary
             return itemDic;
         }
         #endregion
-    }
-    
-    public class DGSApplicationInventory : DGSSharePoint
-    {
-        private const String ApplicationInventoryList = "ETS Application Inventory";
-
-        // Constructor initializes using DGS SharePoint URL and creates 
-        public DGSApplicationInventory()
-        {
-        }
     }
 }
