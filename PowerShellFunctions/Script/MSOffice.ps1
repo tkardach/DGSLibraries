@@ -110,7 +110,7 @@ function Get-ADUserEmail {
 
     .NOTES
         Nothing will be returned if the common name is inputted incorrectly. The domain
-        is set to the DGSACCOUNTS domain by default.
+        is set to the /*dgs active directory name removed for public repository*/ domain by default.
 
     .RETURN
         Email of Active Directory user.
@@ -126,7 +126,7 @@ function Get-ADUserEmail {
 #>
     Param(
         [parameter(helpmessage="Domain name for the Active Directory server")]
-        [string]$Domain="dgsaccounts.dgs.ca.gov",
+        [string]$Domain="/*Default domain removed for public repository*/",
         [parameter(mandatory=$true, helpmessage="Common name for the Active Directory user being searched")]
         [string]$CommonName
     )
