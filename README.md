@@ -1,5 +1,9 @@
 # DGSLibraries
-Here is a collection of the libraries I made while working at DGS.
+Here is a collection of the libraries I made while working at DGS. 
+
+*** PLEASE NOTE ***
+Sensitive information has been removed, which will cause many of these 
+classes and modules to not work
 
 Project:
  Certificate Scanner. The objective was to scan SSL and other certificates
