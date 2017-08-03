@@ -1,0 +1,10 @@
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\CertificateLibraries.dll.config
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\CertificateLibraries.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\CertificateLibraries.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\PowerShellFunctions.exe
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\System.Management.Automation.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\PowerShellFunctions.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\bin\Release\PowerShellFunctions.exe.config
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\obj\Release\CertificateLibraries.csprojResolveAssemblyReference.cache
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\obj\Release\CertificateLibraries.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\CertificateLibraries\obj\Release\CertificateLibraries.pdb
