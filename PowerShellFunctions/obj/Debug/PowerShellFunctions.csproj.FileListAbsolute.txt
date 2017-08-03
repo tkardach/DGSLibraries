@@ -1,0 +1,10 @@
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\PowerShellFunctions.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\System.Management.Automation.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\obj\Debug\PowerShellFunctions.pdb
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\Script\CertificateScanner.ps1
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\Script\IPInformation.ps1
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\Script\MSOffice.ps1
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\Script\RemoteMachineInformation.ps1
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\PowerShellFunctions.dll.config
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\bin\Debug\PowerShellFunctions.dll
+\\yo00appd20.dgsdev.dgs.ca.gov\ServerCertInventory\Classes\SharePointLibraries\PowerShellFunctions\obj\Debug\PowerShellFunctions.dll
