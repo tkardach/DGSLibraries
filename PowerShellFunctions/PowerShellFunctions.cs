@@ -399,7 +399,7 @@ namespace PowerShellFunctions
 
     public class DGSActiveDirectoryFunctions : ActiveDirectoryFunctions
     {
-        private static string _dgsDomain = "dgsaccounts.dgs.ca.gov";
+        private static string _dgsDomain = "/*DGS Active Directory Domain removed for public repository*/";
 
         /// <summary>
         /// Takes a DGS Active Directory Username in the proper format {last, first@DGS} and returns their email.
