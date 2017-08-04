@@ -170,38 +170,110 @@ namespace SharePointLibrary
         #endregion
     }
 
+    /// <summary>
+    /// Representation of the DGS Server Inventory.
+    /// </summary>
     public class DGSServerInventory : DGSSharePoint
     {
-        private const string _serverInventoryList = "/*List name removed for public repository*/";
-        private const string _supportStaffField = "/*Field name removed for public repository*/";
+        // The values for these fields have been removed for privacy. 
+        private const string _serverInventoryList = "/*Removed*/";  // Name of the SharePoint List
+        private const string _supportStaffField = "/*Removed*/";    // FieldName for Support Staff
+        private const string _serverDescriptionField = "/*Removed*/"; // FieldName for Description
+        private const string _businessUnitField = "/*Removed*/";    // FieldName for Business Unit
+        private const string _serverTypeField = "/*Removed*/";  // FieldName for Server Type
+        private const string _environmentField = "/*Removed*/"; // FieldName for Environment
 
-        private Dictionary<string, ServerItem> _serverInventory;
+        private ServerCollection _serverInventory;
 
-        // Represents a Server in the Server Inventory
+        /// <summary>
+        /// Represents a Server in the DGS Server Inventory
+        /// </summary>
         public class ServerItem
         {
             private String _serverName;
             private List<String> _supportStaff;
+            private string _serverDescription;
+            private string _businessUnit;
+            private string _serverType;
+            private string _environment;
 
             // Constructs the Server Item based off of the server name
             public ServerItem(String name)
             {
-                _serverName = name;
+                _serverName = name.ToLower();
                 _supportStaff = new List<string>();
+                _serverDescription = "";
+                _businessUnit = "";
+                _serverType = "";
+                _environment = "";
             }
 
             // Accessor methods
-            public String ServerName { set { _serverName = value; } get { return _serverName; } }
+            public String ServerName { set { _serverName = value.ToLower(); } get { return _serverName; } }
             public List<String> SupportStaff { set { _supportStaff = value; } get { return _supportStaff; } }
+            public string ServerDescription { set { _serverDescription = value; } get { return _serverDescription; } }
+            public string BusinessUnit { set { _businessUnit = value; } get { return _businessUnit; } }
+            public string ServerType { set { _serverType = value; } get { return _serverType; } }
+            public string Environment { set { _environment = value; } get { return _environment; } }
 
             // Support staff List methods
             public void AddStaff(string staff) { _supportStaff.Add(staff); }
             public bool RemoveStaff(string staff) { return _supportStaff.Remove(staff); }
 
-            // Override ToString
+            /// <summary>
+            /// Returns a string detailing this ServerItem.
+            /// </summary>
+            /// <returns>String representation of the ServerItem.</returns>
             public override string ToString()
             {
-                return _serverName;
+                string str = string.Format("{0, -15} {1, 1}", "Server Name", ": ") + _serverName + "\n";
+                string staffStr = "";
+                foreach (string staff in _supportStaff) staffStr += staff;
+                str += string.Format("{0, -15} {1, 1}", "Support Staff", ": ") + staffStr + "\n";
+                str += string.Format("{0, -15} {1, 1}", "Server Type", ": ") + _serverType + "\n";
+                str += string.Format("{0, -15} {1, 1}", "Description", ": ") + _serverDescription + "\n";
+                str += string.Format("{0, -15} {1, 1}", "Business Unit", ": ") + _businessUnit + "\n";
+                str += string.Format("{0, -15} {1, 1}", "Environment", ": ") + _environment;
+                return str;
+            }
+        }
+
+        /// <summary>
+        /// Collection of ServerItems.
+        /// </summary>
+        public class ServerCollection : Dictionary<string, ServerItem>
+        {
+            // Changes the function of the indexer to only search for lowercase servers.
+            public new ServerItem this[string key]
+            {
+                get
+                {
+                    key = key.ToLower();
+                    if (ContainsKey(key))
+                        return base[key];
+                    else
+                        return null;
+                }
+            }
+
+            /// <summary>
+            /// Adds the ServerItem to the ServerInventory.
+            /// </summary>
+            /// <param name="server"></param>
+            public void Add(ServerItem server)
+            {
+                Add(server.ServerName, server);
+            }
+            
+            /// <summary>
+            /// Remove the ServerItem from the Collection.
+            /// </summary>
+            /// <param name="server">Server being removed.</param>
+            /// <returns>True if successfully removed.</returns>
+            public bool Remove(ServerItem server)
+            {
+                if (Remove(server.ServerName)) { return true; }
+                else {  return false; }
             }
         }
 
@@ -215,45 +287,107 @@ namespace SharePointLibrary
         }
 
         #region Methods
-        public static string ServerInventoryList { get { return _serverInventoryList; } }
+        public static string ServerInventoryListName { get { return _serverInventoryList; } }
+
         // Accessor for the Server Inventory Dictionary
-        public Dictionary<string, ServerItem> ServerInventory { get { return _serverInventory; } }
+        public ServerCollection ServerInventory { get { return _serverInventory; } }
 
         // Returns the ListItemCollection containing the DGS Server Inventory items
         private static ListItemCollection GetServerListItems()
         {
-            return GetListItems(ServerInventoryList);
+            return GetListItemCollection(DGSSharePointUrl, ServerInventoryListName);
         }
 
+        // Initializes and returns a ListItemCollection of the Server Inventory entries
+        private new static ListItemCollection GetListItemCollection(string url, string listTitle)
+        {
+            ListItemCollection itemCollection = null;
+
+            // Create a context using SharePoint URL, initialize the web using this URL.
+            ClientContext context = new ClientContext(url);
+            Web web = context.Web;
+
+            try
+            {
+                // Get the desired list from the web page.
+                List lists = context.Web.Lists.GetByTitle(listTitle);
+
+                // Create a query to grab all items.
+                CamlQuery query = CamlQuery.CreateAllItemsQuery();
+                itemCollection = lists.GetItems(query);
+
+                // Load only the necessary values for the SharePoint ListItem
+                context.Load(
+                    itemCollection,
+                    items => items.Include(
+                    item => item["Title"],
+                    item => item[_supportStaffField],
+                    item => item[_businessUnitField],
+                    item => item[_environmentField],
+                    item => item[_serverTypeField],
+                    item => item[_serverDescriptionField],
+                    item => item.FieldValuesAsText[_serverDescriptionField]));
+
+                context.ExecuteQuery();
+            }
+            catch (Microsoft.SharePoint.Client.ClientRequestException ex)
+            {
+                Console.WriteLine("Error Connecting to URL: " + ex.Message);
+            }
+
+            return itemCollection;
+        }
 
         // Creates a Dictionary of DGS Servers, using the server name as the key
-        private static Dictionary<string, ServerItem> CreateServerItemList()
+        private static ServerCollection CreateServerItemList()
         {
-            Dictionary<string, ServerItem> itemDic = new Dictionary<string, ServerItem>();
+            ServerCollection itemDic = new ServerCollection();
 
             // Get the Server Inventory as a ListItemCollection
             ListItemCollection list = GetServerListItems();
-            
             // Itterate through each item in the list
             foreach (ListItem lItem in list)
             {
-                ServerItem serv = new ServerItem(lItem["Title"].ToString());
-
-                // Get each user in the "Support Staff" field
-                var str = (FieldUserValue[])lItem.FieldValues[_supportStaffField];
-                // Add support staff if it exists
-                if (str != null)
+                try
                 {
-                    foreach (FieldUserValue user in str)
-                    {
-                        serv.AddStaff(user.LookupValue);
-                    }
-                }
-                // Add server to the Dictionary
-                if (!itemDic.ContainsKey(serv.ServerName))
-                    itemDic.Add(serv.ServerName, serv);
-            }
+                    ServerItem serv = new ServerItem(lItem["Title"].ToString().ToLower());
 
+                    // Get each user in the "Support Staff" field
+                    var str = (FieldUserValue[])lItem.FieldValues[_supportStaffField];
+                    // Add support staff if it exists
+                    if (str != null)
+                    {
+                        foreach (FieldUserValue user in str)
+                        {
+                            serv.AddStaff(user.LookupValue);
+                        }
+                    }
+
+                    // Set the simple text fields
+                    serv.BusinessUnit = lItem[_businessUnitField] != null ? (string)lItem[_businessUnitField] : "";
+                    serv.ServerType = lItem[_serverTypeField] != null ? (string)lItem[_serverTypeField] : "";
+                    serv.Environment = lItem[_environmentField] != null ? (string)lItem[_environmentField] : "";
+
+                    // Set the FieldNote value for Server Description
+                    string description = lItem[_serverDescriptionField] != null ? lItem.FieldValuesAsText[_serverDescriptionField] : "";
+
+                    // Remove non-ASCII characters from the string
+                    description = description.Replace("\n", "");
+                    description = Regex.Replace(description, @"[^\u0000-\u007F]", string.Empty);
+
+                    serv.ServerDescription = description;
+
+                    // Add server to the Dictionary
+                    if (!itemDic.ContainsKey(serv.ServerName))
+                        itemDic.Add(serv);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+                
             return itemDic;
         }
         #endregion
