@@ -175,22 +175,23 @@ namespace SharePointLibrary
     /// </summary>
     public class DGSServerInventory : DGSSharePoint
     {
-        // The values for these fields have been removed for privacy. 
-        private const string _serverInventoryList = "/*Removed*/";  // Name of the SharePoint List
-        private const string _supportStaffField = "/*Removed*/";    // FieldName for Support Staff
-        private const string _serverDescriptionField = "/*Removed*/"; // FieldName for Description
-        private const string _businessUnitField = "/*Removed*/";    // FieldName for Business Unit
-        private const string _serverTypeField = "/*Removed*/";  // FieldName for Server Type
-        private const string _environmentField = "/*Removed*/"; // FieldName for Environment
+        // Some of the names have been removed for public repository privacy
+        private const string _serverInventoryList = "/*Removed*/";  // SharePoint List Name
+        private const string _supportStaffField = "/*Removed*/";    // FieldName
+        private const string _serverDescriptionField = "/*Removed*/";   // FieldName
+        private const string _businessUnitField = "/*Removed*/";    // FieldName
+        private const string _serverTypeField = "/*Removed*/";  // FieldName
+        private const string _environmentField = "/*Removed*/"; // FieldName
 
         private ServerCollection _serverInventory;
 
+        #region Classes
         /// <summary>
         /// Represents a Server in the DGS Server Inventory
         /// </summary>
         public class ServerItem
         {
-            private String _serverName;
+            private string _serverName;
             private List<String> _supportStaff;
             private string _serverDescription;
             private string _businessUnit;
@@ -257,12 +258,12 @@ namespace SharePointLibrary
             }
 
             /// <summary>
-            /// Adds the ServerItem to the ServerInventory.
+            /// Adds the ServerItem to the ServerCollection.
             /// </summary>
             /// <param name="server"></param>
             public void Add(ServerItem server)
             {
-                Add(server.ServerName, server);
+                Add(server.ServerName.ToLower(), server);
             }
             
             /// <summary>
@@ -275,7 +276,19 @@ namespace SharePointLibrary
                 if (Remove(server.ServerName)) { return true; }
                 else {  return false; }
             }
+
+            public new void Add(string key, ServerItem server)
+            {
+                base.Add(key.ToLower(), server);
+            }
+
+            public new bool Remove(string key)
+            {
+                if (Remove(key.ToLower())) { return true; }
+                else return false;
+            }
         }
+        #endregion
 
         /// <summary>
         /// Constructor initializes using DGS SharePoint URL and creates the DGS Server Inventory
@@ -295,22 +308,16 @@ namespace SharePointLibrary
         // Returns the ListItemCollection containing the DGS Server Inventory items
         private static ListItemCollection GetServerListItems()
         {
-            return GetListItemCollection(DGSSharePointUrl, ServerInventoryListName);
-        }
-
-        // Initializes and returns a ListItemCollection of the Server Inventory entries
-        private new static ListItemCollection GetListItemCollection(string url, string listTitle)
-        {
             ListItemCollection itemCollection = null;
 
             // Create a context using SharePoint URL, initialize the web using this URL.
-            ClientContext context = new ClientContext(url);
+            ClientContext context = new ClientContext(DGSSharePointUrl);
             Web web = context.Web;
 
             try
             {
                 // Get the desired list from the web page.
-                List lists = context.Web.Lists.GetByTitle(listTitle);
+                List lists = context.Web.Lists.GetByTitle(ServerInventoryListName);
 
                 // Create a query to grab all items.
                 CamlQuery query = CamlQuery.CreateAllItemsQuery();
@@ -391,5 +398,200 @@ namespace SharePointLibrary
             return itemDic;
         }
         #endregion
+    }
+    
+    /// <summary>
+    /// Representation of the DGS Application Inventory.
+    /// </summary>
+    public class DGSApplicationInventory : DGSSharePoint
+    {
+        // Some of the names have been removed for public repository privacy
+        private const string ApplicationInventoryListName = "/*Removed*/";  // SharePoint list name
+        private const string _supportContactField = "/*Removed*/";  // FieldName
+        private const string _supportGroupField = "/*Removed*/";    // FieldName
+        private const string _statusField = "/*Removed*/";  // FieldName
+        private const string _descriptionField = "/*Removed*/"; // FieldName
+        private const string _applicationTypeField = "/*Removed*/"; // FieldName
+
+        private ApplicationCollection _applicationInventory;
+
+        #region Classes
+        /// <summary>
+        /// Represents a Server in the DGS Application Inventory
+        /// </summary>
+        public class ApplicationItem
+        {
+            private string _applicationName;
+            private string _supportContact;
+            private string _supportGroup;
+            private string _status;
+            private string _description;
+            private string _applicationType;
+
+            // Constructs the Application Item based off of the server name
+            public ApplicationItem(String name)
+            {
+                _applicationName = name;
+                _supportContact = "";
+            }
+
+            #region Accessors
+            public string ApplicationName { set { _applicationName = value; } get { return _applicationName; } }
+            public string SupportContact { set { _supportContact = value; } get { return _supportContact; } }
+            public string SupportGroup { set { _supportGroup = value; } get { return _supportGroup; } }
+            public string Status { set { _status = value; } get { return _status; } }
+            public string Description { set { _description = value; } get { return _description; } }
+            public string ApplicationType { set { _applicationType = value; } get { return _applicationType; } }
+            #endregion
+
+            /// <summary>
+            /// Returns a string detailing this ApplicationItem.
+            /// </summary>
+            /// <returns>String representation of the ApplicationItem.</returns>
+            public override string ToString()
+            {
+                string str = string.Format("{0, -17} {1, 1}", "Application Name", ": ") + _applicationName + "\n";
+                str += string.Format("{0, -17} {1, 1}", "Support Staff", ": ") + _supportContact + "\n";
+                str += string.Format("{0, -17} {1, 1}", "Support Group", ": ") + _supportGroup + "\n";
+                str += string.Format("{0, -17} {1, 1}", "Status", ": ") + _status + "\n";
+                str += string.Format("{0, -17} {1, 1}", "Application Type", ": ") + _applicationType + "\n";
+                str += string.Format("{0, -17} {1, 1}", "Description", ": ") + _description + "\n";
+                return str;
+            }
+        }
+
+        /// <summary>
+        /// Collection of ApplicationItems.
+        /// </summary>
+        public class ApplicationCollection : Dictionary<string, ApplicationItem>
+        {
+            // Changes the function of the indexer to only search for lowercase servers.
+            public new ApplicationItem this[string key]
+            {
+                get
+                {
+                    key = key.ToLower();
+                    if (ContainsKey(key))
+                        return base[key];
+                    else
+                        return null;
+                }
+            }
+
+            /// <summary>
+            /// Adds the ApplicationItem to the Collection.
+            /// </summary>
+            /// <param name="application"></param>
+            public void Add(ApplicationItem application)
+            {
+                Add(application.ApplicationName.ToLower(), application);
+            }
+
+            /// <summary>
+            /// Remove the ApplicationItem from the Collection.
+            /// </summary>
+            /// <param name="application">Server being removed.</param>
+            /// <returns>True if successfully removed.</returns>
+            public bool Remove(ApplicationItem application)
+            {
+                if (Remove(application.ApplicationName)) { return true; }
+                else { return false; }
+            }
+
+            public new void Add(string key, ApplicationItem server)
+            {
+                base.Add(key.ToLower(), server);
+            }
+
+            public new bool Remove(string key)
+            {
+                if (Remove(key.ToLower())) { return true; }
+                else return false;
+            }
+        }
+        #endregion
+
+        // Constructor initializes using DGS SharePoint URL and creates 
+        public DGSApplicationInventory()
+        {
+            _applicationInventory = CreateApplicationItemList();
+        }
+
+        // Accessor Method
+        public ApplicationCollection ApplicationInventory { get { return _applicationInventory; } }
+
+        // Returns the ListItemCollection containing the DGS Application Inventory items
+        private static ListItemCollection GetApplicationListItems()
+        {
+            ListItemCollection itemCollection = null;
+
+            // Create a context using SharePoint URL, initialize the web using this URL.
+            ClientContext context = new ClientContext(DGSSharePointUrl);
+            Web web = context.Web;
+
+            try
+            {
+                // Get the desired list from the web page.
+                List lists = context.Web.Lists.GetByTitle(ApplicationInventoryListName);
+
+                // Create a query to grab all items.
+                CamlQuery query = CamlQuery.CreateAllItemsQuery();
+                itemCollection = lists.GetItems(query);
+
+                // Load only the necessary values for the SharePoint ListItem
+                context.Load(
+                    itemCollection,
+                    items => items.Include(
+                    item => item["Title"],
+                    item => item[_supportContactField],
+                    item => item[_supportGroupField],
+                    item => item[_statusField],
+                    item => item[_descriptionField],
+                    item => item[_applicationTypeField]));
+
+                context.ExecuteQuery();
+            }
+            catch (Microsoft.SharePoint.Client.ClientRequestException ex)
+            {
+                Console.WriteLine("Error Connecting to URL: " + ex.Message);
+            }
+
+            return itemCollection;
+        }
+
+        // Creates a Dictionary of DGS Applications, using the server name as the key
+        private static ApplicationCollection CreateApplicationItemList()
+        {
+            ApplicationCollection itemDic = new ApplicationCollection();
+
+            // Get the Server Inventory as a ListItemCollection
+            ListItemCollection list = GetApplicationListItems();
+            // Itterate through each item in the list
+            foreach (ListItem lItem in list)
+            {
+                try
+                {
+                    ApplicationItem app = new ApplicationItem(lItem["Title"].ToString());
+                    
+                    // Set the simple text fields
+                    app.SupportContact = lItem[_supportContactField] != null ? (string)lItem[_supportContactField] : "";
+                    app.SupportGroup = lItem[_supportGroupField] != null ? (string)lItem[_supportGroupField] : "";
+                    app.Status = lItem[_statusField] != null ? (string)lItem[_statusField] : "";
+                    app.ApplicationType = lItem[_applicationTypeField] != null ? (string)lItem[_applicationTypeField] : "";
+                    app.Description = lItem[_descriptionField] != null ? (string)lItem[_descriptionField] : "";
+
+                    // Add server to the Dictionary
+                    if (!itemDic.ContainsKey(app.ApplicationName))
+                        itemDic.Add(app);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return itemDic;
+        }
     }
 }
