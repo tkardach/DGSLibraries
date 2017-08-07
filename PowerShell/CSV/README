@@ -1,0 +1,7 @@
+Servers.csv
+
+This is a list of all the servers that will be scanned for certificates. The script
+assumes that the user has permission to access all servers, and that all servers have
+PowerShell Remoting enabled.
+
+The information in Servers.csv has been modified to protect information.
