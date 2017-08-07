@@ -9,3 +9,6 @@ Process:
   2. Script signs into a server and retrieves all IPs (ipconfig \all will even grab IPs not
   registered with DNS) and all active ports (netstat -na)
   3. Script then checks each all ports on all IP addresses and saves all certificates found
+
+Note:
+  Sensitive information has been removed from both the code and the example results.
