@@ -175,7 +175,7 @@ $RootCertDir = "$($PSScriptRoot)\CertificateResults\"
 $Credential = $null
 
 # Test Server used to Validate user credentials
-$TestServer = "YO00APPD20.DGSDEV.DGS.CA.GOV"
+$TestServer = "/*Server Name Removed for Public Repository*/" # Use a test server to test your credentials on
 
 #endregion
 
