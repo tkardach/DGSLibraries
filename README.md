@@ -1,4 +1,4 @@
-# DGSLibraries
+# SharePoint Libraries and Certificate Scanning
 Here is a collection of the libraries I made while working at DGS. 
 
 *** PLEASE NOTE ***
