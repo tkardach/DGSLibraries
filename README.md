@@ -1,5 +1,5 @@
 # SharePoint Libraries and Certificate Scanning
-Here is a collection of the libraries I made while working at DGS. 
+Here is a collection of the libraries I made using C# with .NET and PowerShell while working at DGS. 
 
 *** PLEASE NOTE ***
 Sensitive information has been removed, which will cause many of these 
